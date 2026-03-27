@@ -4,7 +4,7 @@
 #include <iostream>
 
 Game& Game::getInstance() {
-    static Game instance("222011641", 1200, 900);
+    static Game instance("João Guilherme - 222011641", 1200, 900);
     return instance;
 }
 
