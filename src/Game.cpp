@@ -4,7 +4,7 @@
 #include <iostream>
 
 Game& Game::getInstance() {
-    static Game instance("Zumbi", 800, 600);
+    static Game instance("222011641", 1200, 900);
     return instance;
 }
 
@@ -68,6 +68,7 @@ State& Game::GetState(){
 }
 
 void Game::Run(){
+    state.LoadAssets();
     while (!state.QuitRequested()){
         state.Update(0.0);
         state.Render();

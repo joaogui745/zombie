@@ -2,17 +2,18 @@
 
 #include <SDL.h>
 #include <Sprite.h>
+#include <Music.h>
 
 class State {
-    public:
+private:
+    Sprite bg;
+    Music music;
+    bool quitRequested;
+
+public:
     State();
     bool QuitRequested() const;
     void LoadAssets();
     void Update(float dt);
     void Render();
-
-    private:
-    Sprite bg;
-    // Music music;
-    bool quitRequested;
 };
