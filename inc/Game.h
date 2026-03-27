@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include "State.h"
 
-using namespace std;
 
 class Game{
     public:
@@ -11,16 +11,17 @@ class Game{
 
     void Run();
     SDL_Renderer* GetRenderer();
-    //State& GetState();
+    State& GetState();
 
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
+
     private:
-    Game(string title, int width, int height);
+    Game(std::string title, int width, int height);
 
     static Game* instance;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    //State state;
+    State state;
 
 };

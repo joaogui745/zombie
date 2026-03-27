@@ -8,24 +8,24 @@ Game& Game::getInstance() {
     return instance;
 }
 
-Game::Game(string title, int width, int height){
+Game::Game(std::string title, int width, int height) : state() {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)){
-        cerr << "SDL_Init Error: " << SDL_GetError() << endl;
+        std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         exit(EXIT_FAILURE);
     }
 
     if (!IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG)){
-        cerr << "Loaders não carregados" << endl;
+        std::cerr << "Loaders não carregados" << std::endl;
         exit(EXIT_FAILURE);
     }
 
     if (!Mix_Init(MIX_INIT_MP3)){
-        cerr << "Decoders não carregados" << endl;
+        std::cerr << "Decoders não carregados" << std::endl;
         exit(EXIT_FAILURE);
     }
 
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096)){
-        cerr << "Mix_OpenAudio Error" << endl;
+        std::cerr << "Mix_OpenAudio Error" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -34,17 +34,46 @@ Game::Game(string title, int width, int height){
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
     
     if (window == nullptr) {
-        cerr << "Erro ao criar janela" << endl;
+        std::cerr << "Erro ao criar janela" << std::endl;
         exit(EXIT_FAILURE);
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     if (renderer == nullptr){
-        cerr << "Erro ao criar renderer" << endl;
+        std::cerr << "Erro ao criar renderer" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    // Criar State (TODO)
-
 }
+
+Game::~Game() {
+    if (renderer) {
+        SDL_DestroyRenderer(renderer);
+    }
+    if (window) {
+        SDL_DestroyWindow(window);
+    }
+    Mix_CloseAudio();
+    Mix_Quit();
+    IMG_Quit();
+    SDL_Quit();
+}
+
+SDL_Renderer* Game::GetRenderer(){
+    return renderer;
+}
+
+State& Game::GetState(){
+    return state;
+}
+
+void Game::Run(){
+    while (!state.QuitRequested()){
+        state.Update(0.0);
+        state.Render();
+        SDL_RenderPresent(renderer);
+        SDL_Delay(33);
+    }
+    
+}
+
