@@ -1,4 +1,5 @@
 #include <Vec2.h>
+#include <Rect.h>
 #include <cmath>
 
 // Initializers

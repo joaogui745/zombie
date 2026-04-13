@@ -1,17 +1,23 @@
 #pragma once
 
 #include <SDL.h>
+#include <memory>
+#include <vector>
 #include <Sprite.h>
 #include <Music.h>
+#include <GameObject.h>
 
 class State {
 private:
     Sprite bg;
     Music music;
     bool quitRequested;
+    std::vector<std::unique_ptr<GameObject>> objectArray;
 
 public:
     State();
+    ~State();
+    void AddObject(GameObject* go);
     bool QuitRequested() const;
     void LoadAssets();
     void Update(float dt);

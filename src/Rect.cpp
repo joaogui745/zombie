@@ -16,3 +16,9 @@ bool Rect::IsInside(const Vec2& vector) const {
     bool yComponent = vector.y >= y && vector.y <= (y + height);
     return xComponent && yComponent;
 }
+
+float Distance(const Rect& rect1, const Rect& rect2){
+    Vec2 rect2Center = rect2.GetCenter();
+    Vec2 rect1Center = rect1.GetCenter();
+    return Distance(rect1Center, rect2Center);
+}

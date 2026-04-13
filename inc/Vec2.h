@@ -1,5 +1,6 @@
 #pragma once
-#include <Rect.h>
+
+class Rect;
 
 class Vec2{
 public:

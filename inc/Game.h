@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <string>
-#include "State.h"
+#include <State.h>
 
 
 class Game{

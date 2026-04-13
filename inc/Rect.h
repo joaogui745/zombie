@@ -12,8 +12,4 @@ public:
     Rect operator+(const Vec2& vector) const;
 };
 
-float Distance(const Rect& rect1, const Rect& rect2){
-    Vec2 rect2Center = rect2.GetCenter();
-    Vec2 rect1Center = rect1.GetCenter();
-    return Distance(rect1Center, rect2Center);
-}
+float Distance(const Rect& rect1, const Rect& rect2);
