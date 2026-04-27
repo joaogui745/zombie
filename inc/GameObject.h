@@ -21,4 +21,9 @@ public:
     void RemoveComponent(Component* cpt);
     template<typename T> T* GetComponent();
     Rect box;
+
+    GameObject(const GameObject&) = delete;
+    GameObject& operator=(const GameObject&) = delete;
+    GameObject(GameObject&&) = default;
+    GameObject& operator=(GameObject&&) = default;
 };

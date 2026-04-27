@@ -9,7 +9,6 @@
 
 class State {
 private:
-    Sprite bg;
     Music music;
     bool quitRequested;
     std::vector<std::unique_ptr<GameObject>> objectArray;
@@ -17,7 +16,7 @@ private:
 public:
     State();
     ~State();
-    void AddObject(GameObject* go);
+    void AddObject(std::unique_ptr<GameObject> go);
     bool QuitRequested() const;
     void LoadAssets();
     void Update(float dt);

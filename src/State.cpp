@@ -1,16 +1,20 @@
 #include <State.h>
 #include <iostream>
 #include <cstdlib>
+#include <SpriteRenderer.h>
 
 
-State::State() : bg(), music(), quitRequested(false) {}
+State::State() : music(), quitRequested(false) {
+}
 
 State::~State(){
     objectArray.clear();
 }
 
 void State::LoadAssets(){
-    bg.Open("img/Background.png");
+    auto bg = std::make_unique<GameObject>();
+    bg->AddComponent(new SpriteRenderer(*bg, "img/Background.png"));
+    AddObject(std::move(bg));
     music.Open("audio/BGM.wav");
     music.Play();
 }
@@ -36,18 +40,14 @@ void State::Update(float dt){
 }
 
 void State::Render(){
-    //bg.Render(0, 0); //Keep this (?)
     for (auto& go : objectArray){
         go->Render();
     }
 }
 
-void State::AddObject(GameObject* go){
-    if (go == nullptr){
-        std::cerr << "Erro ao adicionar objeto" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    objectArray.emplace_back(go);
+void State::AddObject(std::unique_ptr<GameObject> go) {
+    if(!go) exit(EXIT_FAILURE);
+    objectArray.emplace_back(std::move(go));
 }
 
 bool State::QuitRequested() const {
